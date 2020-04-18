@@ -1,0 +1,15 @@
+---
+- hosts: web
+  become: true
+  tasks:
+    - name: get tcg release
+      get_url:
+        url: https://cloud.imhio.com/s/aDH5ktf99CG7k8D/download
+        dest: /tmp/tcg.rpm
+        mode: '0600'
+    
+    - name: install tcg rpm from a local file
+      yum:
+        name: /tmp/tcg.rpm
+        state: present
+    

@@ -1,0 +1,23 @@
+---
+- hosts: web
+  become: true
+  vars_files:
+    - vars.yml
+  tasks:
+    
+    - name: change tcg config
+      template:
+        src: ./tcg.json.j2
+        dest: /etc/tcg/tcg.json
+        owner: tcg
+        group: tcg
+        mode: 0644
+      notify: restart tcg service
+    
+  handlers:
+
+    - name: restart tcg service
+      service:
+        name: tcg
+        state: restarted
+        enabled: yes

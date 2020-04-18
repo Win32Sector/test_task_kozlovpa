@@ -1,0 +1,21 @@
+mysql_databases:
+  - name: tcg_db
+
+mysql_root_password: super-secure-password
+# Users.
+mysql_users:
+  - name: tcg_user
+    host: "%"
+    password: secure-password
+    priv: "tcg_db.*:ALL"
+
+
+# Replication settings (replication is only enabled if master/user have values).
+mysql_server_id: "1"
+mysql_max_binlog_size: "100M"
+mysql_binlog_format: "ROW"
+mysql_expire_logs_days: "10"
+mysql_replication_role: ''
+mysql_replication_master: ''
+# Same keys as `mysql_users` above.
+mysql_replication_user: []
