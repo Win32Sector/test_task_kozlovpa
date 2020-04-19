@@ -16,7 +16,10 @@ resource "google_compute_instance" "web" {
     network_interface {
         network             = "${var.network}"
 
-        access_config {}
+        access_config {
+
+          nat_ip = google_compute_address.web_ip.address
+        }
     }
 
     connection {
@@ -39,9 +42,9 @@ resource "google_compute_instance" "web" {
   }
 }
 
-#resource "google_compute_address" "web_ip" {
-#  name = "web-ip"
-#}
+resource "google_compute_address" "web_ip" {
+  name = "web-ip"
+}
 
 resource "google_compute_firewall" "web" {
   name    = "http-access"

@@ -22,7 +22,10 @@ resource "google_compute_instance" "db" {
     network_interface {
         network             = "${var.network}"
 
-        access_config {}
+        access_config {
+
+          nat_ip = google_compute_address.db_ip.address
+        }
     }
 
     connection {
@@ -62,6 +65,6 @@ resource "google_compute_disk" "db-disk" {
         }
 }
 
-#resource "google_compute_address" "db_ip" {
-#  name = "db-ip"
-#}
+resource "google_compute_address" "db_ip" {
+  name = "db-ip"
+}
